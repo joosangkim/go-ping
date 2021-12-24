@@ -10,6 +10,7 @@ jobs:
       with:
         repository: "joosangkim/gx-gh-actions"
         path: "./.github/actions"
+        token: "${secret.TEST_PAT}"
     - name: prepare golang env
       uses: "./.github/actions/kas/go/prepare"
       with:
