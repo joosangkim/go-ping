@@ -1,11 +1,5 @@
 name: kas golang application PR pipeline
-on:
-  workflow_call:
-    inputs:
-      environment:
-        required: false
-        type: string
-        description: 'Unit test module for Reusing .'
+on: push
 jobs:
   pr_test:
     runs-on: ubuntu-latest
