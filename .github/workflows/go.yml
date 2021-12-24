@@ -5,8 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3
     - name: fetch actions repo
       uses: actions/checkout@v2
       with:
@@ -17,3 +15,5 @@ jobs:
       uses: "./.github/actions/kas/go/prepare"
       with:
         version: "1.16"
+    - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3        
