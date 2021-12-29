@@ -9,11 +9,9 @@ jobs:
       uses: actions/checkout@v2
       with:
         repository: "joosangkim/gx-gh-actions"
-        path: "./.github/actions"
-        token: "${secrets.TEST_PAT}"
+        path: "./actions"
+        ssh-key: "${secrets.PRIVATE_SSH_KEY}"
     - name: prepare golang env
-      uses: "./.github/actions/kas/go/prepare"
+      uses: "./actions/kas/go/prepare"
       with:
-        version: "1.16"
-    - name: Setup tmate session
-      uses: mxschmitt/action-tmate@v3        
+        version: "1.16"      
