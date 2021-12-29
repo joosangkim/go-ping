@@ -13,6 +13,7 @@ jobs:
       with:
         repository: "joosangkim/gx-gh-actions"
         path: "./actions"
+        ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"
     - name: prepare golang env
       uses: "./actions/kas/go/prepare"
       with:
