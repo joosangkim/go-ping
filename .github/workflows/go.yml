@@ -5,12 +5,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - uses: webfactory/ssh-agent@v0.5.4
+      with:
+        ssh-private-key: ${{ secrets.PRIVATE_KEY }}
     - name: fetch actions repo
       uses: actions/checkout@v2
       with:
         repository: "joosangkim/gx-gh-actions"
         path: "./actions"
-        ssh-key: "${secrets.PRIVATE_SSH_KEY}"
     - name: prepare golang env
       uses: "./actions/kas/go/prepare"
       with:
