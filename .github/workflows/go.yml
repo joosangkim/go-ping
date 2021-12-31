@@ -15,8 +15,6 @@ jobs:
       with:
         repository: "joosangkim/gx-gh-actions"
         path: "./actions"
-        ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"
-    - name: prepare golang env
-      uses: "./actions/kas/go/prepare"
-      with:
-        version: "1.16"      
+        ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"    
+    - name: aws credentials
+      uses: "./actions/workflows/aws"
