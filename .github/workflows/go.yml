@@ -17,4 +17,4 @@ jobs:
         path: "./actions"
         ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"    
     - name: aws credentials
-      uses: "./actions/workflows/aws"
+      uses: "./actions/common/credentials/aws"
