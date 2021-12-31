@@ -1,5 +1,8 @@
 name: kas golang application PR pipeline
 on: push
+permissions:
+      id-token: write
+      contents: read  
 jobs:
   pr_test:
     runs-on: ubuntu-latest
