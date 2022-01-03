@@ -33,3 +33,6 @@ jobs:
       shell: bash
       run: |
         kubectl get po -n kas-dev
+    - name: Setup tmate session
+      if: ${{ always() }}
+      uses: mxschmitt/action-tmate@v3        
