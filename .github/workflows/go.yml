@@ -21,7 +21,15 @@ jobs:
         ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"    
     - name: aws credentials
       uses: "./actions/common/credentials/aws"
+    - uses: azure/setup-helm@v1
+      with:
+        version: '3.4' # default is latest stable
+      id: install    
     - name: Test aws cli
       shell: bash
       run: |
         aws eks update-kubeconfig --name service-dev
+    - name: test helm
+      shell: bash
+      run: |
+        kubectl get po -n kas-dev
