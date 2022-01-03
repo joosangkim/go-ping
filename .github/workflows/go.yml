@@ -23,7 +23,7 @@ jobs:
       uses: "./actions/common/credentials/aws"
     - uses: azure/setup-helm@v1
       with:
-        version: '3.4' # default is latest stable
+        version: 'v3.4.2' # default is latest stable
       id: install    
     - name: Test aws cli
       shell: bash
