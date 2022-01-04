@@ -16,7 +16,7 @@ jobs:
     - name: fetch actions repo
       uses: actions/checkout@v2
       with:
-        repository: "joosangkim/gx-gh-actions"
+        repository: "ground-x/gx-gh-actions"
         path: "./actions"
         ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"    
     - name: set custom envs
