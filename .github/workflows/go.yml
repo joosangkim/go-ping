@@ -26,8 +26,8 @@ jobs:
       uses: "./actions/common/credentials/aws"
     - uses: azure/setup-helm@v1
       with:
-        version: 'v3.4.2' # default is latest stable
-        role-session-name: ${{ join([steps.set-envs.outputs.repo-name, github.sha],'-') }}
+        version: 'v3.4.2' # default is latest stable 
+        role-session-name: ${{ format(${0}-${1}, steps.set-envs.outputs.repo-name, github.sha) }}
       id: install    
     - name: Test aws cli
       shell: bash
