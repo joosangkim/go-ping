@@ -24,10 +24,11 @@ jobs:
       uses: "./actions/common/envs"        
     - name: aws credentials
       uses: "./actions/common/credentials/aws"
+      with:
+        role-session-name: ${{ format('{0}-{1}', steps.set-envs.outputs.repo-name, github.sha) }}
     - uses: azure/setup-helm@v1
       with:
         version: 'v3.4.2' # default is latest stable  format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat')
-        role-session-name: ${{ format('{0}-{1}', steps.set-envs.outputs.repo-name, github.sha) }}
       id: install    
     - name: Test aws cli
       shell: bash
