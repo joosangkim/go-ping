@@ -19,11 +19,15 @@ jobs:
         repository: "joosangkim/gx-gh-actions"
         path: "./actions"
         ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"    
+    - name: set custom envs
+      id: set-envs
+      uses: "./actions/common/envs"        
     - name: aws credentials
       uses: "./actions/common/credentials/aws"
     - uses: azure/setup-helm@v1
       with:
         version: 'v3.4.2' # default is latest stable
+        role-session-name: ${{ join([steps.set-envs.outputs.repo-name, github.sha],'-') }}
       id: install    
     - name: Test aws cli
       shell: bash
