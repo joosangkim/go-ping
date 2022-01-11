@@ -11,5 +11,5 @@ jobs:
         REF="${{ env.GITHUB_REF }}"
         echo $(echo ${{ github.repository }} | sed -E 's|(^.*\/)||')
         echo $(echo ${{ github.sha }} | cut -c-8)
-        REF="${{ env.GITHUB_REF_NAME }}"
+        REF="${{ github.ref_name }}"
         echo $REF
