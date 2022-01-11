@@ -8,8 +8,13 @@ jobs:
     - name: test
       shell: bash
       run: |
-        REF="${{ env.GITHUB_REF }}"
-        echo $(echo ${{ github.repository }} | sed -E 's|(^.*\/)||')
-        echo $(echo ${{ github.sha }} | cut -c-8)
         REF="${{ github.ref_name }}"
         echo $REF
+        DEPLOY_ENV=dev
+        REG_QA_TAG='v*[0-9].*[0-9].*[0-9]-rc.*[0-9]'
+        if [[ "${REF}" == "master" ]] || [[ "${REF}" == "main" ]]; then
+          DEPLOY_ENV=staging
+        elif [[ "${REF}" =~ ${REG_QA_TAG} ]]; then
+          DEPLOY_ENV=qa
+        fi
+        echo $DEPLOY_ENV
