@@ -1,43 +1,15 @@
 name: kas golang application PR pipeline
-on: push
-permissions:
-      id-token: write
-      contents: read  
+on: ["push"]
 jobs:
   pr_test:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: true
-    - uses: webfactory/ssh-agent@v0.5.4
-      with:
-        ssh-private-key: ${{ secrets.PRIVATE_SSH_KEY }}
-    - name: fetch actions repo
-      uses: actions/checkout@v2
-      with:
-        repository: "ground-x/gx-gh-actions"
-        path: "./actions"
-        ssh-key: "${{ secrets.PRIVATE_SSH_KEY }}"    
-    - name: set custom envs
-      id: set-envs
-      uses: "./actions/common/envs"        
-    - name: aws credentials
-      uses: "./actions/common/credentials/aws"
-      with:
-        role-session-name: ${{ format('{0}-{1}', steps.set-envs.outputs.repo-name, github.sha) }}
-    - uses: azure/setup-helm@v1
-      with:
-        version: 'v3.4.2' # default is latest stable  format('Hello {0} {1} {2}', 'Mona', 'the', 'Octocat')
-      id: install    
-    - name: Test aws cli
+    - name: test
       shell: bash
       run: |
-        aws eks update-kubeconfig --name service-dev
-    - name: test helm
-      shell: bash
-      run: |
-        kubectl get po -n kas-dev
-#     - name: Setup tmate session
-#       if: ${{ always() }}
-#       uses: mxschmitt/action-tmate@v3        
+        REF="${{ env.GITHUB_REF }}"
+        echo $(echo ${{ github.repository }} | sed -E 's|(^.*\/)||')
+        echo $(echo ${{ github.sha }} | cut -c-8)
+        REF="${{ env.GITHUB_REF_NAME }}"
+        echo $REF
