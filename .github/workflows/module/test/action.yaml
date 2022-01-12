@@ -44,17 +44,7 @@ runs:
       id: login-ecr
       shell: bash
       run: |
-        ecr="${{ env.registry }}/${{ env.repository }}"
-        echo "$ecr"
-        latest_commit_hash=`git rev-parse HEAD`
-        echo $latest_commit_hash
-        docker build -f ${GITHUB_WORKSPACE}/Dockerfile -t $ecr:$latest_commit_hash .
-        docker push $ecr:$latest_commit_hash
-      env:
-        repository: ${{ inputs.repo }}
-        registry: ${{ inputs.registry }}
-        tag: ${{ inputs.tag }}
-        dockerfile: ${{ inputs.dockerfile }}
+        echo ${{ inputs.repo }} 
     #- name: Build, tag, and push image to Amazon ECR
     #  env:
      #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
