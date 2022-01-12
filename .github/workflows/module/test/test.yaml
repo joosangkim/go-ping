@@ -1,0 +1,65 @@
+name: Build and push docker image
+author: Jeff Kim
+description: 'Build and push docker image'
+inputs:
+  repo:
+    description: '' # Filled out description.
+    required: true
+    default: 'sample-repo'
+  registry:
+    description: '' # Filled out description.
+    required: true
+    default: 'sample-registry'
+  tag:
+    description: '' # Filled out description.
+    required: true
+    default: 'latest'
+  dockerfile:
+    description: '' # Filled out description.
+    required: true
+    default: 'dockerfile'
+
+  ## You can add any values as an input or output if you need
+# outputs:
+#   aws-account-id:
+#     description: 'The AWS account ID for the provided credentials'
+#     value: ${{ steps.credentials.outputs.aws-account-id }}
+runs:
+  using: "composite"
+  steps:
+    ## Reference - docker build in circleci
+    # - aws-ecr/build-and-push-image:
+    #     repo: $ECR_REPO_NAME
+    #     tag: "${ECR_TAG_OVERRIDE:-latest},build-${CIRCLE_BUILD_NUM},${CIRCLE_SHA1}"
+    #     dockerfile: ./Dockerfile
+    ## TODO
+    ## 1. Check aws credential is valid or not
+    ## 2. Engineers can set Dockerfile location where they want
+    ## 3. Add tag
+    ## 4. Complete README.md
+    ## Additional TODO
+    ## 1. Use github packages
+    ## 2. Use https://github.com/docker/build-push-action
+    - name: Login to Amazon ECR
+      id: login-ecr
+      shell: bash
+      run: |
+        ecr="${{ env.registry }}/${{ env.repo }}"
+        echo "$ecr"
+        latest_commit_hash=`git rev-parse HEAD`
+        echo $latest_commit_hash
+        docker build -f ${GITHUB_WORKSPACE}/Dockerfile -t $ecr:$latest_commit_hash .
+        docker push $ecr:$latest_commit_hash
+      env:
+        repository: ${{ inputs.repo }}
+        registry: ${{ inputs.registry }}
+        tag: ${{ inputs.tag }}
+        dockerfile: ${{ inputs.dockerfile }}
+    #- name: Build, tag, and push image to Amazon ECR
+    #  env:
+     #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      #  ECR_REPOSITORY: my-ecr-repo
+      #  IMAGE_TAG: ${{ github.sha }}
+      #run: |
+       # docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        #docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
