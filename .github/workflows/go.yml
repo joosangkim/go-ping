@@ -5,16 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: test
-      shell: bash
-      run: |
-        REF="${{ github.ref_name }}"
-        echo $REF
-        DEPLOY_ENV=dev
-        REG_QA_TAG='v*[0-9].*[0-9].*[0-9]-rc.*[0-9]'
-        if [[ "${REF}" == "master" ]] || [[ "${REF}" == "main" ]]; then
-          DEPLOY_ENV=staging
-        elif [[ "${REF}" =~ ${REG_QA_TAG} ]]; then
-          DEPLOY_ENV=qa
-        fi
-        echo $DEPLOY_ENV
+    - uses: ./github/workflows/module/test
+    
