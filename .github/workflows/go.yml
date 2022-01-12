@@ -6,4 +6,13 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: ./.github/workflows/module/test
-    
+      with:
+        repo: | 
+            *.go
+            **/*.go
+            go.mod
+            go.sum
+            Makefile
+            !.circleci
+            !.github/workflows
+            !fixtures/helm-chart
