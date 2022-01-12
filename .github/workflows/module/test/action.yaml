@@ -44,7 +44,7 @@ runs:
       id: login-ecr
       shell: bash
       run: |
-        ecr="${{ env.registry }}/${{ env.repo }}"
+        ecr="${{ env.registry }}/${{ env.repository }}"
         echo "$ecr"
         latest_commit_hash=`git rev-parse HEAD`
         echo $latest_commit_hash
