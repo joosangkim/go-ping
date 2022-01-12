@@ -44,7 +44,7 @@ runs:
       id: login-ecr
       shell: bash
       run: |
-        echo ${{ inputs.repo }} 
+        echo "${{ inputs.repo }}"
     #- name: Build, tag, and push image to Amazon ECR
     #  env:
      #   ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
