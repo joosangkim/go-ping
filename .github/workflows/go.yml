@@ -11,18 +11,19 @@ jobs:
       run: |
           echo "** SET project **"
           echo ::set-output name=project::$(echo ${{ github.repository }} | sed -E 's|(^.*\/)||')
-    - name: test2
-      shell: bash
-      run: |
-        echo ${{ steps.test1.outputs.project }}
-    - uses: ./.github/workflows/module/test
-      with:
-        repo: | 
-            *.go
-            **/*.go
-            go.mod
-            go.sum
-            Makefile
-            !.circleci
-            !.github/workflows
-            !fixtures/helm-chart
+          echo ${{ github.ref_name }}
+#     - name: test2
+#       shell: bash
+#       run: |
+#         echo ${{ steps.test1.outputs.project }}
+#     - uses: ./.github/workflows/module/test
+#       with:
+#         repo: | 
+#             *.go
+#             **/*.go
+#             go.mod
+#             go.sum
+#             Makefile
+#             !.circleci
+#             !.github/workflows
+#             !fixtures/helm-chart
